@@ -1,6 +1,21 @@
 import "../styles/App.scss";
+import { useState } from "react";
+//el nº de errores se puede calcular a partir de otros datos
+//El número de errores, cambia solo cuando añade una letra errónea
+//¿Qué número de errores hay cuando el juego no ha empezado? 0
+//¿Hay un número de errores mínimo y/o máximo? si, minimo 0 maximo 13
+//¿Hay datos que son conjuntos de datos (como un array o un objeto) o todos los datos son simples o primitivos? Puede ser el propio muñeco el array que se va pintando, las letras de la solución porque hay que recorrerlas al pintarlas y las letras falladas también
+//dato simple puede ser el valor que introduce la usuaria para probar
 
 function App() {
+  const [numberOfErrors, setNumberOfErrors] = useState(0);
+  const handleButton = (event) => {
+    event.preventDefault();
+
+    let numberOfErrors = numberOfErrors + 1;
+    console.log(numberOfErrors);
+  };
+
   return (
     <div>
       <div className="page">
@@ -46,6 +61,7 @@ function App() {
                 name="last-letter"
                 id="last-letter"
               />
+              <button onClick={handleButton}>incrementar</button>
             </form>
           </section>
           <section className="dummy error-5">
