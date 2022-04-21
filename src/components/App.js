@@ -9,12 +9,19 @@ import { useState } from "react";
 
 function App() {
   const [numberOfErrors, setNumberOfErrors] = useState(0);
+  const [lastLetter, setLastLetter] = useState('');
   const handleButton = (event) => {
     event.preventDefault();
+    setNumberOfErrors(numberOfErrors + 1);
 
-    let numberOfErrors = numberOfErrors + 1;
-    console.log(numberOfErrors);
   };
+
+  const handleInput = (ev) => {
+    const userLetter = ev.target.value;
+    setLastLetter(userLetter);
+    console.log(lastLetter);
+    // continuar por aquí
+  }
 
   return (
     <div>
@@ -60,11 +67,14 @@ function App() {
                 type="text"
                 name="last-letter"
                 id="last-letter"
+                value={lastLetter}
+                onChange={handleInput}
               />
               <button onClick={handleButton}>incrementar</button>
             </form>
           </section>
-          <section className="dummy error-5">
+
+          <section className={`dummy error-${numberOfErrors}`}>
             <span className="error-13 eye"></span>
             <span className="error-12 eye"></span>
             <span className="error-11 line"></span>
