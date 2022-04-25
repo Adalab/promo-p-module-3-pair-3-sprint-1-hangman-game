@@ -1,5 +1,5 @@
-import "../styles/App.scss";
-import { useState } from "react";
+import '../styles/App.scss';
+import { useState } from 'react';
 //el nº de errores se puede calcular a partir de otros datos
 //El número de errores, cambia solo cuando añade una letra errónea
 //¿Qué número de errores hay cuando el juego no ha empezado? 0
@@ -9,21 +9,27 @@ import { useState } from "react";
 
 function App() {
   const [numberOfErrors, setNumberOfErrors] = useState(0);
-  const [lastLetter, setLastLetter] = useState("");
-  const [word, setWord] = useState("katakroker");
+  const [lastLetter, setLastLetter] = useState('');
+  const [word, setWord] = useState('pepino');
+  const [userLetters, setUserLetters] = useState([]);
 
   const handleButton = (event) => {
     event.preventDefault();
     setNumberOfErrors(numberOfErrors + 1);
   };
   const renderSolutionLetters = () => {
-    const wordLetters = word.split("");
+    const wordLetters = word.split('');
 
     const html = wordLetters.map((wordLetter, index) => {
-      return <li className='letter' key={index}></li>;
+      if(userLetters.includes(wordLetter)){
+        return <li className='letter' key={index}>{wordLetter}</li>;
+      } else {
+        return <li className='letter' key={index}></li>;
+      }
     });
 
     return html;
+
   };
 
   const handleInput = (ev) => {
@@ -31,8 +37,9 @@ function App() {
     let letters = /^[a-zA-ZÀ-ÿñÑ]$/;
     if (letters.test(inputValue)) {
       setLastLetter(inputValue);
+      setUserLetters([...userLetters, inputValue]);
     } else {
-      setLastLetter("");
+      setLastLetter('');
     }
   };
 
